@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
 
-export default function ReservationModal({ ticket, onClose, onSuccess }) {
+export default function ReservationModal({ ticket, raffleId, onClose, onSuccess }) {
   const [form, setForm] = useState({ name: '', phone: '', address: '' })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -31,11 +31,12 @@ export default function ReservationModal({ ticket, onClose, onSuccess }) {
         reserved_at: new Date().toISOString(),
       })
       .eq('id', ticket.id)
+      .eq('raffle_id', raffleId)
 
     setLoading(false)
 
     if (dbError) {
-      setError('Ocurrió un error. Intenta de nuevo.')
+      setError(dbError.message)
     } else {
       onSuccess(`¡El número ${num} fue apartado exitosamente! 🎉`)
       onClose()
@@ -44,98 +45,38 @@ export default function ReservationModal({ ticket, onClose, onSuccess }) {
 
   return (
     <div className="modal-overlay" onClick={(e) => e.target === e.currentTarget && onClose()}>
-      <div className="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-
-        {/* Encabezado */}
+      <div className="modal-card">
         <div className="modal-header">
-          <div className="modal-ticket-badge">
-            🎟️ Número seleccionado
+          <div className="modal-ticket-badge">🎟️ Número seleccionado</div>
+          <h2>Apartar el número <strong>{num}</strong></h2>
+          <p>Completa tus datos para reservar este número.</p>
+        </div>
+
+        <form onSubmit={handleSubmit} className="modal-body">
+          {error && <div className="admin-error">{error}</div>}
+
+          <div className="form-group">
+            <label className="form-label">👤 Nombre completo</label>
+            <input className="form-input" type="text" name="name" value={form.name} onChange={handleChange} placeholder="Ej: María García" autoFocus />
           </div>
-          <h2 id="modal-title">Apartar el número <strong>{num}</strong></h2>
-          <p>Completa tus datos para reservar este número de la rifa.</p>
-        </div>
 
-        {/* Cuerpo / Formulario */}
-        <div className="modal-body">
-          {error && (
-            <div className="admin-error" role="alert">{error}</div>
-          )}
+          <div className="form-group">
+            <label className="form-label">📱 Teléfono</label>
+            <input className="form-input" type="tel" name="phone" value={form.phone} onChange={handleChange} placeholder="Ej: 300 123 4567" />
+          </div>
 
-          <form onSubmit={handleSubmit} noValidate>
-            <div className="form-group">
-              <label className="form-label" htmlFor="modal-name">
-                👤 Nombre completo
-              </label>
-              <input
-                id="modal-name"
-                className="form-input"
-                type="text"
-                name="name"
-                value={form.name}
-                onChange={handleChange}
-                placeholder="Ej: María García"
-                autoFocus
-                maxLength={120}
-              />
-            </div>
+          <div className="form-group">
+            <label className="form-label">📍 Dirección</label>
+            <input className="form-input" type="text" name="address" value={form.address} onChange={handleChange} placeholder="Ej: Cl. 12 #34-56" />
+          </div>
 
-            <div className="form-group">
-              <label className="form-label" htmlFor="modal-phone">
-                📱 Número de teléfono
-              </label>
-              <input
-                id="modal-phone"
-                className="form-input"
-                type="tel"
-                name="phone"
-                value={form.phone}
-                onChange={handleChange}
-                placeholder="Ej: 300 123 4567"
-                maxLength={20}
-              />
-            </div>
-
-            <div className="form-group">
-              <label className="form-label" htmlFor="modal-address">
-                📍 Dirección / Ciudad
-              </label>
-              <input
-                id="modal-address"
-                className="form-input"
-                type="text"
-                name="address"
-                value={form.address}
-                onChange={handleChange}
-                placeholder="Ej: Cl. 12 #34-56, Medellín"
-                maxLength={200}
-              />
-            </div>
-
-            <div className="form-actions">
-              <button
-                type="button"
-                className="btn btn-ghost"
-                onClick={onClose}
-                disabled={loading}
-              >
-                Cancelar
-              </button>
-              <button
-                type="submit"
-                id="modal-submit-btn"
-                className="btn btn-primary"
-                disabled={loading}
-              >
-                {loading ? (
-                  <><div className="spinner" /> Guardando...</>
-                ) : (
-                  <>🎟️ Apartar número {num}</>
-                )}
-              </button>
-            </div>
-          </form>
-        </div>
-
+          <div className="form-actions">
+            <button type="button" className="btn btn-ghost" onClick={onClose} disabled={loading}>Cancelar</button>
+            <button type="submit" className="btn btn-primary" disabled={loading}>
+               {loading ? <div className="spinner" /> : `Apartar número ${num}`}
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   )
