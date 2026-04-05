@@ -35,7 +35,7 @@ function TicketCard({ ticket, onClick }) {
   )
 }
 
-export default function RaffleGrid({ raffleId, onTicketSelect }) {
+export default function RaffleGrid({ raffleId, onTicketSelect, refreshTrigger }) {
   const [tickets, setTickets] = useState([])
   const [loading, setLoading] = useState(true)
 
@@ -64,7 +64,7 @@ export default function RaffleGrid({ raffleId, onTicketSelect }) {
       .subscribe()
 
     return () => supabase.removeChannel(channel)
-  }, [fetchTickets, raffleId])
+  }, [fetchTickets, raffleId, refreshTrigger])
 
   const available = tickets.filter(t => t.status === 'available').length
   const reserved  = tickets.filter(t => t.status === 'reserved').length

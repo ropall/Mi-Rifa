@@ -9,6 +9,7 @@ export default function PublicRaffle({ onShowToast }) {
   const [raffle, setRaffle] = useState(null)
   const [loading, setLoading] = useState(true)
   const [selectedTicket, setSelectedTicket] = useState(null)
+  const [refreshKey, setRefreshKey] = useState(0)
 
   const fetchRaffle = useCallback(async () => {
     const { data, error } = await supabase
@@ -24,6 +25,11 @@ export default function PublicRaffle({ onShowToast }) {
   useEffect(() => {
     fetchRaffle()
   }, [fetchRaffle])
+
+  const handleReservationSuccess = (msg) => {
+    onShowToast(msg, 'success')
+    setRefreshKey(prev => prev + 1)
+  }
 
   if (loading) return <div className="empty-state">⏳ Cargando rifa...</div>
   if (!raffle) return <div className="empty-state">❌ Rifa no encontrada.</div>
@@ -62,6 +68,7 @@ export default function PublicRaffle({ onShowToast }) {
         <RaffleGrid 
           raffleId={id} 
           onTicketSelect={(ticket) => setSelectedTicket(ticket)} 
+          refreshTrigger={refreshKey}
         />
       </main>
 
@@ -70,7 +77,7 @@ export default function PublicRaffle({ onShowToast }) {
           ticket={selectedTicket} 
           raffleId={id}
           onClose={() => setSelectedTicket(null)} 
-          onSuccess={(msg) => onShowToast(msg, 'success')}
+          onSuccess={handleReservationSuccess}
         />
       )}
     </div>
