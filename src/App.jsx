@@ -15,7 +15,7 @@ function App() {
     draw_date: 'Cargando...'
   })
 
-  // Función para mostrar notificaciones (toasts)
+  // Función para mostrar notificaciones (toasts) (cambio)
   const showToast = (message, type = 'success') => {
     setToast({ message, type })
     setTimeout(() => setToast(null), 4000)
@@ -57,15 +57,15 @@ function App() {
             <div className="navbar-logo">🎟️</div>
             <span className="navbar-title">Rifa<span>Suerte</span></span>
           </a>
-          
+
           <div className="navbar-nav">
-            <button 
+            <button
               className={`nav-btn ${view === 'public' ? 'nav-btn-active' : 'nav-btn-ghost'}`}
               onClick={() => setView('public')}
             >
               🏠 Inicio
             </button>
-            <button 
+            <button
               className={`nav-btn ${view === 'admin' ? 'nav-btn-active' : 'nav-btn-ghost'}`}
               onClick={() => setView('admin')}
             >
@@ -90,7 +90,7 @@ function App() {
                   <span>📅 Sorteo: {settings.draw_date}</span>
                   <span>🎰 Lotería: {settings.lottery}</span>
                 </div>
-                
+
                 <div className="legend">
                   <div className="legend-item">
                     <div className="legend-dot legend-dot-available"></div>
@@ -122,9 +122,9 @@ function App() {
 
       {/* Modal de Reserva */}
       {selectedTicket && (
-        <ReservationModal 
-          ticket={selectedTicket} 
-          onClose={() => setSelectedTicket(null)} 
+        <ReservationModal
+          ticket={selectedTicket}
+          onClose={() => setSelectedTicket(null)}
           onSuccess={(msg) => showToast(msg, 'success')}
         />
       )}
