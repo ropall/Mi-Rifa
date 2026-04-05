@@ -225,7 +225,8 @@ body {
 
 @media (max-width: 768px) {
   .grid-stats {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
   }
 }
 
@@ -279,11 +280,15 @@ body {
 }
 
 @media (max-width: 600px) {
-  .tickets-grid { grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .tickets-grid { grid-template-columns: repeat(8, 1fr); gap: 8px; }
 }
 
-@media (max-width: 400px) {
-  .tickets-grid { grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 480px) {
+  .tickets-grid { grid-template-columns: repeat(6, 1fr); gap: 6px; }
+}
+
+@media (max-width: 380px) {
+  .tickets-grid { grid-template-columns: repeat(5, 1fr); gap: 4px; }
 }
 
 .ticket-card {
@@ -360,8 +365,8 @@ body {
 
 .dashboard-stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
 }
 
 .dashboard-stat {
@@ -735,8 +740,20 @@ textarea.form-input {
   color: var(--color-text-muted);
 }
 
-@media (max-width: 500px) {
-  .hero { padding: 60px 20px; }
+@media (max-width: 600px) {
+  .hero { padding: 40px 16px; }
+  .grid-section { padding: 24px 12px 60px; }
+  .hero h1 { font-size: 2rem; letter-spacing: -1px; }
+  .hero p { font-size: 1rem; margin-bottom: 24px; }
+  
+  .stat-card { padding: 16px 12px; }
+  .stat-value { font-size: 1.8rem; }
+  .stat-label { font-size: 0.65rem; }
+  
   .navbar-inner { padding: 0 16px; }
-  .dashboard-header h1 { font-size: 1.8rem; }
+  .dashboard-header h1 { font-size: 1.6rem; }
+  .dashboard-header p { font-size: 0.9rem; }
+  
+  .ticket-card { font-size: 0.9rem; border-width: 1.5px; }
+  .ds-number { font-size: 2.2rem; }
 }
