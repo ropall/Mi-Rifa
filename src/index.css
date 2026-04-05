@@ -503,7 +503,196 @@ body {
   max-width: 500px;
   box-shadow: var(--shadow-lg);
   overflow: hidden;
+  position: relative;
 }
+
+.modal-header {
+  padding: 32px 32px 0;
+  margin-bottom: 24px;
+}
+
+.modal-ticket-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-blue-pale);
+  color: var(--color-blue);
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.modal-header h2 {
+  font-size: 1.8rem;
+  font-weight: 900;
+  margin-bottom: 4px;
+}
+
+.modal-header p {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+}
+
+.modal-body {
+  padding: 0 32px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: 1rem;
+  transition: var(--transition);
+  background: var(--color-surface);
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--color-blue);
+  background: white;
+  box-shadow: 0 0 0 4px var(--color-blue-pale);
+}
+
+.form-input::placeholder {
+  color: #94a3b8;
+}
+
+textarea.form-input {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.form-actions .btn {
+  flex: 1;
+}
+
+/* ============ LOGIN / SIGNUP ============ */
+.admin-login {
+  min-height: calc(100vh - 70px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background: var(--color-surface-2);
+}
+
+.admin-login-card {
+  background: white;
+  padding: 48px 40px;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  max-width: 440px;
+  width: 100%;
+  text-align: center;
+  border: 1.5px solid var(--color-border);
+}
+
+.admin-login-icon {
+  width: 64px;
+  height: 64px;
+  background: var(--color-blue-pale);
+  color: var(--color-blue);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  margin: 0 auto 24px;
+}
+
+.admin-login-card h2 {
+  font-size: 2rem;
+  font-weight: 900;
+  margin-bottom: 8px;
+}
+
+.admin-login-card p {
+  color: var(--color-text-muted);
+  margin-bottom: 32px;
+  font-size: 1rem;
+}
+
+.admin-login-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ============ TABLE UTILS ============ */
+.status-pill {
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pill-paid { background: var(--color-paid-bg); color: var(--color-paid-text); border: 1px solid var(--color-paid-border); }
+.pill-reserved { background: var(--color-reserved-bg); color: var(--color-reserved-text); border: 1px solid var(--color-reserved-border); }
+
+.ticket-number-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.85rem;
+}
+
+.badge-paid { background: var(--color-paid); color: white; }
+.badge-reserved { background: var(--color-reserved); color: white; }
+
+.table-search {
+  padding: 20px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.search-input {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px 16px;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+
+.btn-success { background: var(--color-paid); color: white; padding: 8px 12px; border-radius: 6px; font-size: 0.9rem; }
+.btn-danger { background: var(--color-reserved); color: white; padding: 8px 12px; border-radius: 6px; font-size: 0.9rem; }
 
 /* ============ UTILS ============ */
 .spinner {
